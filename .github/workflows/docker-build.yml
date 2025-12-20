@@ -188,3 +188,44 @@ jobs:
           build-args: |
             HOMEASSISTANT_VERSION=${{ env.HOMEASSISTANT_VERSION }}
 
+  build-teamspeak:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata
+        id: meta
+        run: |
+          echo "branch=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
+          echo "short_sha=${GITHUB_SHA::8}" >> $GITHUB_OUTPUT
+          echo "ts3_version=3.13.7" >> $GITHUB_OUTPUT
+
+      - name: Build and push teamspeak
+        uses: docker/build-push-action@v5
+        with:
+          context: ./teamspeak
+          file: ./teamspeak/Dockerfile
+          platforms: linux/arm64
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_PREFIX }}/teamspeak:${{ steps.meta.outputs.ts3_version }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_PREFIX }}/teamspeak:latest
+          build-args: |
+            TS3_VERSION=${{ steps.meta.outputs.ts3_version }}
