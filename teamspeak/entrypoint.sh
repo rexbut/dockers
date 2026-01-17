@@ -30,6 +30,8 @@ export BOX64_LD_LIBRARY_PATH="${BOX64_LD_LIBRARY_PATH:-/opt/teamspeak:/usr/lib/x
 exec box64 ./ts3server \
     logpath=/data/logs \
     dbsqlpath=sql/ \
+    dbplugin=ts3db_sqlite3 \
+    dbpluginparameter=/data/ts3db_sqlite3.ini \
     licensepath=/data \
     query_ip_allowlist=/data/query_ip_allowlist.txt \
     query_ip_denylist=/data/query_ip_denylist.txt \
