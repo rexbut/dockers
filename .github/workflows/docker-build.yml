@@ -215,7 +215,7 @@ jobs:
         run: |
           echo "branch=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
           echo "short_sha=${GITHUB_SHA::8}" >> $GITHUB_OUTPUT
-          echo "ts3_version=3.13.7" >> $GITHUB_OUTPUT
+          echo "ts3_version=3.13.8" >> $GITHUB_OUTPUT
 
       - name: Build and push teamspeak
         uses: docker/build-push-action@v5
