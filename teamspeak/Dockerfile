@@ -1,7 +1,7 @@
 # TeamSpeak 3 Server - ARM64 (via Box64 emulation)
 # Based on official TeamSpeak Alpine image structure
 
-ARG TS3_VERSION=3.13.7
+ARG TS3_VERSION=3.13.8
 ARG DEBIAN_VERSION=bookworm-slim
 
 FROM debian:${DEBIAN_VERSION}
