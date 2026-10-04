@@ -10,7 +10,7 @@ env:
   REGISTRY: ghcr.io
   # Utilise le nom complet du repo (owner/repo)
   IMAGE_PREFIX: ${{ github.repository }}
-  HOMEASSISTANT_VERSION: "2025.12"
+  HOMEASSISTANT_VERSION: "2026.9"
 
 jobs:
   build-ubuntu:
